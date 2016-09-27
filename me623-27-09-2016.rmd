@@ -1,0 +1,73 @@
+---
+title: "Guilherme"
+author: "ME623-27-09-2016"
+date: "27 de setembro de 2016"
+output: pdf_document
+---
+
+```{r}
+#setwd(choose.dir())
+ex01 <- read.table("dados2.dat",header = T)
+ex01.mds <- aggregate(resp ~ trat,FUN=mean,data=ex01)$resp
+ex01.se <- (aggregate(resp ~ trat,FUN=sd,data=ex01)$resp)/sqrt(6)
+cbind(ex01.mds, ex01.se)
+require(MASS)
+par(mfrow=c(1,2))
+plot(ex01)
+points(ex01.mds, pch = "x", col = 2, cex = 1.5) #marca a média no grafico com "x"
+with(ex01, stripchart(resp ~ trat, met = "jitter", vert = T, pch = 19)) #jitter coloca os pontos
+points(ex01.mds, pch = 4, cex = 1.5) #indica a média com "x"
+arrows(1:9, ex01.mds + ex01.se, 1:9, ex01.mds - ex01.se,
+angle = 90, code = 3, length = 0.1) #coloca um erro padrao acima e um abaixo da média no grafico com barras horizontais
+
+bartlett.test(resp ~ trat, data = ex01) #testa se as variancias são iguais
+
+ex01.mod <- aov(resp ~ trat, data = ex01)
+
+ex01.lm <- lm(resp ~ trat, data = ex01)
+
+x <- matrix(data=c(1,0,0,1,0,0,1,1,0,1,1,0,1,0,1,1,0,1),ncol=3,nrow=6,byrow=T)
+beta <- c(10,-3,2)
+y <- x%*%beta+rnorm(6)
+library(MASS)
+beta.hat <- ginv(t(x)%*%x)
+beta.hat <- beta.hat%*%t(x)%*%y
+
+lm1<-lm(y~x-1)
+model.matrix(lm1)
+
+
+trt <- c(rep(1,2),rep(2,2),rep(3,2))
+tau2 <- ifelse(trt==2,1,0)
+tau3 <- ifelse(trt==3,1,0)
+
+lm2 <- lm(y~tau2+tau3)
+model.matrix(lm2)
+
+#tomando a terceira coluna como referencia
+
+x <- matrix(data=c(1,1,0,
+                   1,1,0,
+                   1,0,1,
+                   1,0,1,
+                   1,0,0,
+                   1,0,0),ncol=3,nrow=6,byrow=T)
+beta <- c(10,-3,2)
+y <- x%*%beta+rnorm(6)
+library(MASS)
+beta.hat <- ginv(t(x)%*%x)
+beta.hat <- beta.hat%*%t(x)%*%y
+
+lm1<-lm(y~x-1)
+model.matrix(lm1)
+
+
+trt <- c(rep(1,2),rep(2,2),rep(3,2))
+tau2 <- ifelse(trt==1,1,0)
+tau3 <- ifelse(trt==2,1,0)
+
+lm2 <- lm(y~tau2+tau3)
+model.matrix(lm2)
+
+```
+
