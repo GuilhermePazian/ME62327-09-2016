@@ -71,3 +71,91 @@ model.matrix(lm2)
 
 ```
 
+
+```{r aula29_09_2016}
+summary(lm(resp~trat,data = ex01))$coef
+```
+
+$\bar(y)$=353.52
+
+$\hat(mu1)$ = 378.6667
+$\hat(mu2) - \hat(mu1)$ = 52.8333
+$\hat(mu3) - \hat(mu1)$ = -32.3333
+$\hat(mu4) - \hat(mu1)$ = -85.000
+$\hat(mu5) - \hat(mu1)$ = -36.83
+$\hat(mu6) - \hat(mu1)$ = 27.33
+$\hat(mu7) - \hat(mu1)$ = -214.50
+$\hat(mu8) - \hat(mu1)$ = 25.17
+$\hat(mu9) - \hat(mu1)$ = 37.00
+
+$\tau_i = \mu_i - \mu$ ($\mu_i$ = media tau i / $\mu$ = media geral)
+
+
+$\hat(\tau_1)$ = 25.15
+$\hat(\tau_2)$ = 77.98
+$\hat(\tau_3)$ = -7.18
+$\hat(\tau_4)$ = -59.85
+$\hat(\tau_5)$ = -11.68
+$\hat(\tau_6)$ = 52.48
+$\hat(\tau_7)$ = -189.35
+$\hat(\tau_8)$ = 50.32
+$\hat(\tau_9)$ = 62.15
+
+```{r}
+
+c1 <- contrasts(ex01$trat)
+c1[1,1] <- 1
+c1[2,1] <- 0
+c1[2,2] <- 1
+c1[3,2] <- 0
+c2 <- matrix(c1,nrow=9,ncol=8)
+
+
+```
+
+
+
+```{r}
+c1 <- rbind(c(2, 2, 2, -1, -1, -1, -1, -1, -1), c(2, -1, -1, rep(0,6)), c(0, 1, -1, rep(0, 6)), c(rep(0, 3), c(2, 2, -1, -1, -1, -1)),c(rep(0, 3), c(1, -1), rep(0, 4)), c(rep(0, 5), c(1, 1, -1, -1)),c(rep(0, 5), c(1, -1, 0, 0)), c(rep(0, 5), c(0, 0, 1, -1)))
+
+
+library(MASS)
+c1.ginv <- ginv(c1)
+
+colnames(c1.ginv) <- paste("contr", 1:8, sep = "")
+
+contrasts(ex01$trat) <- c1.ginv
+mod1 <- lm(resp ~ trat, data = ex01)
+summary(mod1)
+
+aov(mod1)
+```
+
+
+```{r}
+ex01co <- data.frame(model.matrix(resp ~ trat, ex01)[, -1])
+names(ex01co) <- paste("Contraste", 1:8)
+ex01co$resp <- ex01$resp
+mod2 <- lm(resp ~ ., data = ex01co)
+av2 <- anova(mod2)
+av2
+aov(mod2)
+
+
+
+
+contrasts(ex01$trat) <- NULL
+```
+
+
+```{r}
+with(ex01, pairwise.t.test(resp, trat))
+
+
+ex01.mod <- aov(resp ~ trat, data = ex01)
+ex01.HSD <- TukeyHSD(ex01.mod, ordered = TRUE)
+plot(ex01.HSD)
+
+```
+
+
