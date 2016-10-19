@@ -2,7 +2,7 @@
 title: "Guilherme"
 author: "ME623-27-09-2016"
 date: "27 de setembro de 2016"
-output: pdf_document
+output: html_document
 ---
 
 ```{r}
@@ -76,30 +76,30 @@ model.matrix(lm2)
 summary(lm(resp~trat,data = ex01))$coef
 ```
 
-$\bar(y)$=353.52
+$\bar{y}$=353.52
+  
+$\hat{\mu}_1$ = 378.6667  
+$\hat{\mu}_2 - \hat{\mu}_1$ = 52.8333  
+$\hat{\mu}_3 - \hat{\mu}_1$ = -32.3333  
+$\hat{\mu}_4 - \hat{\mu}_1$ = -85.000  
+$\hat{\mu}_5 - \hat{\mu}_1$ = -36.83  
+$\hat{\mu}_6 - \hat{\mu}_1$ = 27.33  
+$\hat{\mu}_7 - \hat{\mu}_1$ = -214.50  
+$\hat{\mu}_8 - \hat{\mu}_1$ = 25.17  
+$\hat{\mu}_9 - \hat{\mu}_1$ = 37.00  
 
-$\hat(mu1)$ = 378.6667
-$\hat(mu2) - \hat(mu1)$ = 52.8333
-$\hat(mu3) - \hat(mu1)$ = -32.3333
-$\hat(mu4) - \hat(mu1)$ = -85.000
-$\hat(mu5) - \hat(mu1)$ = -36.83
-$\hat(mu6) - \hat(mu1)$ = 27.33
-$\hat(mu7) - \hat(mu1)$ = -214.50
-$\hat(mu8) - \hat(mu1)$ = 25.17
-$\hat(mu9) - \hat(mu1)$ = 37.00
-
-$\tau_i = \mu_i - \mu$ ($\mu_i$ = media tau i / $\mu$ = media geral)
-
-
-$\hat(\tau_1)$ = 25.15
-$\hat(\tau_2)$ = 77.98
-$\hat(\tau_3)$ = -7.18
-$\hat(\tau_4)$ = -59.85
-$\hat(\tau_5)$ = -11.68
-$\hat(\tau_6)$ = 52.48
-$\hat(\tau_7)$ = -189.35
-$\hat(\tau_8)$ = 50.32
-$\hat(\tau_9)$ = 62.15
+$$\tau_i = \mu_i - \mu$$ ($\mu_i$ = media tau i / $\mu$ = media geral)  
+  
+  
+$\hat{\tau}_1$ = 25.15  
+$\hat{\tau}_2$ = 77.98  
+$\hat{\tau}_3$ = -7.18  
+$\hat{\tau}_4$ = -59.85  
+$\hat{\tau}_5$ = -11.68  
+$\hat{\tau}_6$ = 52.48  
+$\hat{\tau}_7$ = -189.35  
+$\hat{\tau}_8$ = 50.32  
+$\hat{\tau}_9$ = 62.15
 
 ```{r}
 
